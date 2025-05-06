@@ -3,8 +3,6 @@ package gov.epa.ccte.api.exposure.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

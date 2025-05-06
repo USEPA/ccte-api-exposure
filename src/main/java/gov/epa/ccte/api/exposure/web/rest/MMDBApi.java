@@ -7,10 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import gov.epa.ccte.api.exposure.domain.MMDBAggregate;
 import gov.epa.ccte.api.exposure.domain.MMDBSingleSample;
 import gov.epa.ccte.api.exposure.projection.MMDBMediaDescSummary;
+import gov.epa.ccte.api.exposure.web.rest.requests.MMDBPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,7 +42,7 @@ public interface MMDBApi {
                     schema=@Schema(oneOf = {MMDBAggregate.class})))
     })
     @RequestMapping(value = "/aggregate/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		List getHarmonizedAggregateDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID7020182") @PathVariable("dtxsid") String dtxsid);
+		List<MMDBAggregate> getHarmonizedAggregateDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID7020182") @PathVariable("dtxsid") String dtxsid);
 
 	/**
 	 * {@code GET  /exposure/mmdb/aggregate/by-medium/:medium} : get list of harmonized aggregate records by harmonized medium.
@@ -55,7 +57,8 @@ public interface MMDBApi {
                     schema=@Schema(oneOf = {MMDBAggregate.class})))
     })
     @RequestMapping(value = "/aggregate/by-medium/{medium}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		List getHarmonizedAggregateDataByMedium(@Parameter(required = true, description = "harmonized medium", example = "surface water") @PathVariable("medium") String medium);
+		MMDBPage getHarmonizedAggregateDataByMedium(@Parameter(required = true, description = "harmonized medium", example = "surface water") @PathVariable("medium") String medium,
+												@RequestParam(required = false, value = "pageNumber", defaultValue = "1") Integer pageNumber);
 
 	/**
 	 * {@code GET  /exposure/mmdb/single-sample/by-dtxsid/:dtxsid} : get list of harmonized single-sample data records by dtxsid.
@@ -70,7 +73,7 @@ public interface MMDBApi {
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))
     })
     @RequestMapping(value = "/single-sample/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		List getHarmonizedSingleSampleDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID7020182") @PathVariable("dtxsid") String dtxsid);
+		List<MMDBSingleSample> getHarmonizedSingleSampleDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID7020182") @PathVariable("dtxsid") String dtxsid);
 
 
 	/**
@@ -86,7 +89,8 @@ public interface MMDBApi {
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))
     })
     @RequestMapping(value = "/single-sample/by-medium/{medium}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		List getHarmonizedSingleSampleDataByMedium(@Parameter(required = true, description = "harmonized medium", example = "surface water") @PathVariable("medium") String medium);
+		MMDBPage getHarmonizedSingleSampleDataByMedium(@Parameter(required = true, description = "harmonized medium", example = "surface water") @PathVariable("medium") String medium,
+													@RequestParam(required = false, value = "pageNumber", defaultValue = "1") Integer pageNumber);
 
 
 	/**
@@ -97,7 +101,8 @@ public interface MMDBApi {
 	 */
 	@Operation(summary = "Get all searchable harmonized medium categories and their corresponding definitions")
     @ApiResponses(value= {
-            @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
+                    schema=@Schema(oneOf = {MMDBMediaDescSummary.class})))
     })
     @RequestMapping(value = "/mediums", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	List<MMDBMediaDescSummary> getAllHarmonizedMedia();

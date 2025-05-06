@@ -4,21 +4,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "v_qsur_data", schema = "ep")
+@Table(name = "mv_qsur_data", schema = "qsur")
 public class QsurData {
     @Id
-    @ColumnDefault("nextval('ep.qsur_data_id_seq'::regclass)")
-    @Column(name = "id", nullable = false)
+    @NotNull
+    @Column(name = "id")
     private Integer id;
 
     @Size(max = 50)

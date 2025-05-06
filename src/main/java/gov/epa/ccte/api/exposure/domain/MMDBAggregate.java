@@ -7,7 +7,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,7 @@ public class MMDBAggregate {
 	@Id
 	@Column(name = "id")
 	@Schema(description ="Unique database ID for this individual table record")
-	private Integer id;
+	private Long id;
 
 	@Size(max = 120)
 	@Column(name = "full_source_name", length = 120)

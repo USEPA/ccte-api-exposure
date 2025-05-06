@@ -3,7 +3,6 @@ package gov.epa.ccte.api.exposure.web.rest;
 import gov.epa.ccte.api.exposure.domain.DemoExpoPrediction;
 import gov.epa.ccte.api.exposure.repository.DemoExpoPredictionRepository;
 import gov.epa.ccte.api.exposure.web.rest.error.HigherNumberOfDtxsidException;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +29,28 @@ public class DemoExpoPredictionResource implements DemoExpoPredictionApi{
     public DemoExpoPredictionResource(DemoExpoPredictionRepository repository) {
         this.repository = repository;
     }
+    
     @Override
-    public List<DemoExpoPrediction> getDemoExpoPredictionByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid")String dtxsid) {
-        log.debug("demographic exposure prediction for dtxsid = {}", dtxsid);
+    public List<?> getDemoExpoPredictionByDtxsid(String dtxsid, String projection) {
+        log.debug("Fetching assay data for dtxsid = {} with projection = {}", dtxsid, projection);
 
-        return repository.findByDtxsid(dtxsid);
+        if (projection == null || projection.isEmpty()) {
+        	List<DemoExpoPrediction> result = repository.findByDtxsid(dtxsid, DemoExpoPrediction.class);
+            return result; 
+        }
+
+        Object result = switch (projection) {
+            case "ccd-demographic" -> repository.findByDtxsid(dtxsid);
+            default -> repository.findByDtxsid(dtxsid, DemoExpoPrediction.class);
+        };
+
+        if (result instanceof List<?>) {
+            return (List<?>) result;
+        } else if (result != null) {
+            return List.of(result); 
+        } else {
+            return List.of(); 
+        }
     }
 
     @Override

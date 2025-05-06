@@ -10,8 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 @Schema(description = "These are estimates of the average (geometric mean) exposure rate (mg/kg bodyweight/day) for the U.S. population. We are 50% confident that the exposure for the chemical is below the median estimate, and we are 95% confident that the average exposure rate is below the upper 95th percent estimate. Total population predictions are based upon consensus exposure model predictions and the similarity of the compound to those chemicals monitored by NHANES. The method for the demographic-specific predictions are based upon a simpler, heuristic model described in the 2014 publication \"High Throughput Heuristics for Prioritizing Human Exposure to Environmental Chemicals\".")

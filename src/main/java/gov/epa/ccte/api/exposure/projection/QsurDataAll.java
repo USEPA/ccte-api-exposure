@@ -8,7 +8,8 @@ import java.math.BigDecimal;
  * Projection for {@link QsurData}
  */
 public interface QsurDataAll {
+	
+	String getDtxsid();
     String getHarmonizedFunctionalUse();
-
     BigDecimal getProbability();
 }

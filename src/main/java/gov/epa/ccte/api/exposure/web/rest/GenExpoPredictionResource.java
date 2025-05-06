@@ -22,11 +22,28 @@ public class GenExpoPredictionResource implements GenExpoPredictionApi {
     public GenExpoPredictionResource(GenExpoPredictionRepository repository) {
         this.repository = repository;
     }
-    @Override
-     public List<GenExpoPrediction> getGenExpoPredictionByDtxsid(String dtxsid) {
-        log.debug("general exposure prediction for dtxsid = {}", dtxsid);
 
-         return repository.findByDtxsid(dtxsid);
+    @Override
+    public List<?> getGenExpoPredictionByDtxsid(String dtxsid, String projection) {
+        log.debug("Fetching assay data for dtxsid = {} with projection = {}", dtxsid, projection);
+
+        if (projection == null || projection.isEmpty()) {
+        	List<GenExpoPrediction> result = repository.findByDtxsid(dtxsid, GenExpoPrediction.class);
+            return result; 
+        }
+
+        Object result = switch (projection) {
+            case "ccd-general" -> repository.findByDtxsid(dtxsid);
+            default -> repository.findByDtxsid(dtxsid, GenExpoPrediction.class);
+        };
+
+        if (result instanceof List<?>) {
+            return (List<?>) result;
+        } else if (result != null) {
+            return List.of(result); 
+        } else {
+            return List.of(); 
+        }
     }
 
     @Override

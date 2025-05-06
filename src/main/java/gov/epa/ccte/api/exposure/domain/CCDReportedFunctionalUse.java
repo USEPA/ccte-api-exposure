@@ -1,32 +1,31 @@
 package gov.epa.ccte.api.exposure.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import org.hibernate.annotations.JdbcTypeCode;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
-import org.hibernate.type.SqlTypes;
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "mv_t_functional_use_category", schema = "chemexpo")
-public class FunctionalUseCategory {
+@Table(name = "mv_t_ccd_reported_functional_use", schema = "chemexpo")
+public class CCDReportedFunctionalUse {
     @Id
     @Column(name = "id")
     private Long id;
 
+    @Size(max = 50)
+    @Column(name = "dtxsid")
+    private String dtxsid;
+    
     @Size(max = 100)
-    @Column(name = "function_category", length = 100)
+    @Column(name = "function_category")
     private String category;
 
-    @Column(name = "function_definition")
-    @JdbcTypeCode(SqlTypes.LONGVARCHAR)
+    @Size(max = 255)
+    @Column(name = "reported_function")
     private String definition;
 }
