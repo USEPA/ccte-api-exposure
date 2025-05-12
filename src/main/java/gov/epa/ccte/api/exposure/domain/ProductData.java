@@ -50,7 +50,7 @@ public class ProductData {
 
     @Size(max = 100)
     @Column(name = "prod_type", length = 100)
-    private String prod_type;
+    private String prodType;
 
     @Size(max = 100)
     @Column(name = "classification_method", length = 100)
