@@ -99,7 +99,6 @@ public interface MmDbApi {
 	/**
 	 * {@code GET  /exposure/mmdb/mediums} : get list of all searchable medium categories and their definitions.
 	 *
-	 * @param N/A.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB medium categories and definitions}.
 	 */
 	@Operation(summary = "Get all searchable harmonized medium categories and their corresponding definitions")
