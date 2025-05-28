@@ -18,14 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class MMDBResource implements MMDBApi {
+public class MmDbResource implements MmDbApi {
 
 		private final MMDBAggregateRepository aggregateRepository;
 		private final MMDBSingleSampleRepository singleSampleRepository;
 		private final MMDBMediaDescRepository mediaRepository;
 		private final MMDBService mmdbService;
 
-	public MMDBResource(MMDBAggregateRepository aggregateRepository,MMDBSingleSampleRepository singleSampleRepository, MMDBMediaDescRepository mediaRepository, MMDBService mmdbService) {
+	public MmDbResource(MMDBAggregateRepository aggregateRepository, MMDBSingleSampleRepository singleSampleRepository, MMDBMediaDescRepository mediaRepository, MMDBService mmdbService) {
 		this.aggregateRepository = aggregateRepository;
 		this.singleSampleRepository = singleSampleRepository;
 		this.mediaRepository = mediaRepository;
