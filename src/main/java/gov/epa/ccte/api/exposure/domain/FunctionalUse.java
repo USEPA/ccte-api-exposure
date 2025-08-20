@@ -1,6 +1,9 @@
 package gov.epa.ccte.api.exposure.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Column;
@@ -12,6 +15,9 @@ import jakarta.validation.constraints.Size;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "mv_t_functional_use_resource", schema = "chemexpo")
 public class FunctionalUse {

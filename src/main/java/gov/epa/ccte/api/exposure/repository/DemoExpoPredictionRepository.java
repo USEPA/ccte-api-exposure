@@ -1,7 +1,7 @@
 package gov.epa.ccte.api.exposure.repository;
 
 import gov.epa.ccte.api.exposure.domain.DemoExpoPrediction;
-import gov.epa.ccte.api.exposure.projection.CCDDemoExpoPrediciton;
+import gov.epa.ccte.api.exposure.projection.CCDDemoExpoPrediction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -13,7 +13,7 @@ public interface DemoExpoPredictionRepository extends JpaRepository<DemoExpoPred
 
     <T>List<T> findByDtxsid(String dtxsid, Class<T> type);
     
-    List<CCDDemoExpoPrediciton> findByDtxsid(String dtxsid);
+    List<CCDDemoExpoPrediction> findByDtxsid(String dtxsid);
 
     <T> List<T> findByDtxsidInOrderByDtxsidAsc(String[] dtxsids, Class<T> type);
 

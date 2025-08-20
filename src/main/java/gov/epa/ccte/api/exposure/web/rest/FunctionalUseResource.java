@@ -2,12 +2,13 @@ package gov.epa.ccte.api.exposure.web.rest;
 
 import gov.epa.ccte.api.exposure.domain.FunctionalUseCategory;
 import gov.epa.ccte.api.exposure.projection.QsurDataAll;
-import gov.epa.ccte.api.exposure.projection.FunctionalUseAll;
+import gov.epa.ccte.api.exposure.domain.FunctionalUse;
 import gov.epa.ccte.api.exposure.repository.FunctionalUseCategoryRepository;
 import gov.epa.ccte.api.exposure.repository.FunctionalUseRepository;
 import gov.epa.ccte.api.exposure.repository.QsurDataRepository;
 import gov.epa.ccte.api.exposure.web.rest.error.HigherNumberOfDtxsidException;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +22,9 @@ public class FunctionalUseResource implements FunctionalUseApi {
         private final FunctionalUseRepository repository;
         private final FunctionalUseCategoryRepository categoryRepository;
         private final QsurDataRepository qsurDataRepository;
-
-    @Value("200")
-    private Integer batchSize;
+        
+        @Value("200")
+        private Integer batchSize;
 
     public FunctionalUseResource(FunctionalUseRepository repository, FunctionalUseCategoryRepository categoryRepository, QsurDataRepository qsurDataRepository) {
         this.repository = repository;
@@ -32,10 +33,10 @@ public class FunctionalUseResource implements FunctionalUseApi {
     }
 
     @Override
-    public List<FunctionalUseAll> getFunctionalUseByDtxsid(String dtxsid) {
+    public List<FunctionalUse> getFunctionalUseByDtxsid(String dtxsid) {
         log.debug("all functional use for dtxsid = {}", dtxsid);
 
-        List<FunctionalUseAll> data = repository.findByDtxsid(dtxsid, FunctionalUseAll.class);
+        List<FunctionalUse> data = repository.findByDtxsid(dtxsid, FunctionalUse.class);
 
         return data;
     }
@@ -55,16 +56,16 @@ public class FunctionalUseResource implements FunctionalUseApi {
 
         return data;
     }
-
+    
     @Override
     public @ResponseBody
-    List<FunctionalUseAll>batchSearchFunctionalUse(String[] dtxsids) {
+    List<FunctionalUse>batchSearchFunctionalUse(String[] dtxsids) {
         log.debug("functional use data for dtxsid size = {}", dtxsids.length);
 
         if(dtxsids.length > batchSize)
             throw new HigherNumberOfDtxsidException(dtxsids.length, batchSize);
 
-        List<FunctionalUseAll> data = repository.findByDtxsidInOrderByDtxsidAsc(dtxsids, FunctionalUseAll.class);
+        List<FunctionalUse> data = repository.findByDtxsidInOrderByDtxsidAsc(dtxsids, FunctionalUse.class);
 
         return data;
     }

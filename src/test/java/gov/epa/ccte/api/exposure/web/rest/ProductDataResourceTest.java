@@ -1,39 +1,45 @@
 package gov.epa.ccte.api.exposure.web.rest;
 
+import org.junit.jupiter.api.BeforeEach;
+
+//This will test REST end-points in the ProductDataResource.java using WebMvcTest and MockitoBean
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.when;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gov.epa.ccte.api.exposure.domain.ProductData;
 import gov.epa.ccte.api.exposure.domain.Puc;
 import gov.epa.ccte.api.exposure.repository.ProductDataRepository;
 import gov.epa.ccte.api.exposure.repository.PucRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+@ActiveProfiles("test")
 @WebMvcTest(ProductDataResource.class)
+@RunWith(MockitoJUnitRunner.class)
 class ProductDataResourceTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
+    
+    @MockitoBean
     private ProductDataRepository productDataRepository;
 
-    @MockBean
+    @MockitoBean
     private PucRepository pucRepository;
 
     private ProductData productData;
@@ -42,47 +48,79 @@ class ProductDataResourceTest {
     @BeforeEach
     void setUp(){
         productData = ProductData.builder()
-                .id(635205L)
+                .id(10934L)
                 .dtxsid("DTXSID7020182")
                 .docid(1308929)
-                .doctitle("02Y040CAT COMP B MIL-P-23377G TY 1 CL C")
-                .docdate("01/10/1997")
-                .productname("02y040cat comp b mil-p-23377g ty 1 cl c")
-                .rawcentralcomp("<50")
+                .doctitle("EPOLITE 2152 HARDENER")
+                .docdate("03/09/1992")
+                .productname("epolite 2152 hardener")
+                .gencat("Raw Materials")
+                .prodfam("adhesives")
+                .prodtype("")
+                .classificationmethod("Manual Batch")
+                .rawmincomp("30")
+                .rawmaxcomp("45")
+                .rawcentralcomp("")
                 .unittype("percent")
-                .lowerweightfraction(BigDecimal.valueOf(0.000000000000000))
-                .upperweightfraction(BigDecimal.valueOf(0.500000000000000))
+                .lowerweightfraction(BigDecimal.valueOf(0.300000000000000))
+                .upperweightfraction(BigDecimal.valueOf(0.450000000000000))
+                .centralweightfraction(null)
                 .weightfractiontype("reported")
                 .build();
+        
 
         puc = Puc.builder()
                 .id(25L)
-                .genCat("batteries")
-                .prodfam("general use")
-                .prodtype("lithium")
-                .definition("Single use lithium based batteries for general use, including lithium metal and lithium-ion batteries.")
+                .kindName("Article")
+                .genCat("Batteries")
+                .prodfam("electronic device")
+                .prodtype("camera")
+                .definition("Electronic device batteries intended for cameras, including photo and video cameras. Includes replacement batteries for these devices.")
                 .build();
     }
 
     @Test
-    void getProductDataByDtxsid() throws Exception {
+    void testGetProductDataByDtxsid() throws Exception {
         final List<ProductData> products = Collections.singletonList(productData);
 
-        given(productDataRepository.findByDtxsid("DTXSID7020182")).willReturn(products);
+        when(productDataRepository.findByDtxsid("DTXSID7020182")).thenReturn(products);
 
         mockMvc.perform(get("/exposure/product-data/search/by-dtxsid/{dtxsid}", "DTXSID7020182"))
+				.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].dtxsid").value(productData.getDtxsid()));
 
     }
+    
+    @Test
+    void testBatchSearchProductData() throws Exception {
+    	final List<ProductData> products = Collections.singletonList(productData);
+        String[] jsonArray = {"DTXSID7020182"};
+        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        		
+        when(productDataRepository.findByDtxsidInOrderByDtxsidAsc(jsonArray, ProductData.class)).thenReturn(products);
+        
+        
+        mockMvc.perform(post("/exposure/product-data/search/by-dtxsid/")
+        		.accept(MediaType.APPLICATION_JSON)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content(jsonBody))
+        		.andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].dtxsid").value(productData.getDtxsid()))
+                .andReturn();
+
+    }
+    
 
     @Test
-    void getProductDataPuc() throws Exception {
+    void testGetProductDataPuc() throws Exception {
         final List<Puc> pucs = Collections.singletonList(puc);
 
-        given(pucRepository.findAll()).willReturn(pucs);
+        when(pucRepository.findAll()).thenReturn(pucs);
 
         mockMvc.perform(get("/exposure/product-data/puc"))
+				.andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(puc.getId()));
 

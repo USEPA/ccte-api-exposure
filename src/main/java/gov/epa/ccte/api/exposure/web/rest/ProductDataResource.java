@@ -32,7 +32,7 @@ public class ProductDataResource implements ProductDataApi {
 
     @Override
     public List<ProductData> getProductDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid) {
-        log.debug("all functional use for dtxsid = {}", dtxsid);
+        log.debug("product data for dtxsid = {}", dtxsid);
 
        return productDataRepository.findByDtxsid(dtxsid);
 
