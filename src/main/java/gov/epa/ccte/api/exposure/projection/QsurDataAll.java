@@ -12,4 +12,9 @@ public interface QsurDataAll {
 	String getDtxsid();
     String getHarmonizedFunctionalUse();
     BigDecimal getProbability();
+    
+	void setDtxsid(String dtxsid);
+	void setHarmonizedFunctionalUse(String harmonizedFunctionalUse);
+	void setProbability(BigDecimal probability);
+
 }

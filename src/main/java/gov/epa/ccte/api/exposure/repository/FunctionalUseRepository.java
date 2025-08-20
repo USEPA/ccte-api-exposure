@@ -12,8 +12,8 @@ import java.util.List;
 public interface FunctionalUseRepository extends JpaRepository<FunctionalUse, Long> {
 
     @Transactional(readOnly = true)
-    <T>
-    List<T> findByDtxsid(String dtxsid, Class<T> type);
+    
+    <T>List<T> findByDtxsid(String dtxsid, Class<T> type);
 
     <T> List<T> findByDtxsidInOrderByDtxsidAsc(String[] dtxsids, Class<T> type);
 }
