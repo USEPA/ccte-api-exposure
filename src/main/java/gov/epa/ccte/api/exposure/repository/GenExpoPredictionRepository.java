@@ -1,7 +1,7 @@
 package gov.epa.ccte.api.exposure.repository;
 
 import gov.epa.ccte.api.exposure.domain.GenExpoPrediction;
-import gov.epa.ccte.api.exposure.projection.CCDGenExpoPrediciton;
+import gov.epa.ccte.api.exposure.projection.CCDGenExpoPrediction;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -60,5 +60,5 @@ public interface GenExpoPredictionRepository extends JpaRepository<GenExpoPredic
     			FROM ep.v_gen_expo_predictions gen
     			WHERE gen.dtxsid = :dtxsid   
     		""", nativeQuery = true)
-    List<CCDGenExpoPrediciton> findByDtxsid(String dtxsid);
+    List<CCDGenExpoPrediction> findByDtxsid(String dtxsid);
 }

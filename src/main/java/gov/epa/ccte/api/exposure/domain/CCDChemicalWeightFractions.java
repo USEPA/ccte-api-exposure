@@ -1,7 +1,7 @@
 package gov.epa.ccte.api.exposure.domain;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -11,11 +11,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "mv_t_ccd_chemical_weight_fractions", schema = "chemexpo")
 public class CCDChemicalWeightFractions {
@@ -78,7 +84,7 @@ public class CCDChemicalWeightFractions {
     private String sourceUrl;
     
     @Column(name = "source_download_date")
-    private Date sourceDownloadDate;
+    private LocalDate sourceDownloadDate;
     
     @Column(name = "prod_count")
     private Long productCount;

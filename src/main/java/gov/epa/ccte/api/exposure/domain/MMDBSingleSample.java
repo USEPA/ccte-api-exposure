@@ -8,11 +8,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Schema(description ="The information here describes harmonized single-sample records associated with studies that report sample-level results in MMDB with their associated source and metadata information.")
 @Entity
 @Table(name = "mv_mmdb_single_sample", schema = "mmdb")

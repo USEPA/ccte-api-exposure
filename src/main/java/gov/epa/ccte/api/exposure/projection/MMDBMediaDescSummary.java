@@ -6,6 +6,8 @@ package gov.epa.ccte.api.exposure.projection;
 public interface MMDBMediaDescSummary {
 
 	String getHarmonizedMedium();
-
 	String getHarmonizedMediumDesc();
+	
+	void setHarmonizedMedium(String harmonizedMedium);
+	void setHarmonizedMediumDesc(String harmonizedMediumDesc);
 }

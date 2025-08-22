@@ -23,11 +23,11 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
-@Tag(name = "MMBD Resource",
+@Tag(name = "MMDB Resource",
         description = "API endpoints for collecting data for MMDB database.")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/mmdb")
-public interface MMDBApi {
+public interface MmDbApi {
 
 	/**
 	 * {@code GET  /exposure/mmdb/aggregate/by-dtxsid/:dtxsid} : get list of harmonized aggregate records by dtxsid.
@@ -47,7 +47,7 @@ public interface MMDBApi {
 	/**
 	 * {@code GET  /exposure/mmdb/aggregate/by-medium/:medium} : get list of harmonized aggregate records by harmonized medium.
 	 *
-	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
+	 * @param medium the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
 	@Operation(summary = "Get harmonized aggregate records by medium",
@@ -56,9 +56,11 @@ public interface MMDBApi {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBAggregate.class})))
     })
-    @RequestMapping(value = "/aggregate/by-medium/{medium}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		MMDBPage getHarmonizedAggregateDataByMedium(@Parameter(required = true, description = "harmonized medium", example = "surface water") @PathVariable("medium") String medium,
-												@RequestParam(required = false, value = "pageNumber", defaultValue = "1") Integer pageNumber);
+	@RequestMapping(value = "/aggregate/by-medium", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	MMDBPage getHarmonizedAggregateDataByMedium(
+			@Parameter(required = true, description = "harmonized medium", example = "surface water")
+			@RequestParam("medium") String medium,
+			@RequestParam(required = false, value = "pageNumber", defaultValue = "1") Integer pageNumber);
 
 	/**
 	 * {@code GET  /exposure/mmdb/single-sample/by-dtxsid/:dtxsid} : get list of harmonized single-sample data records by dtxsid.
@@ -79,7 +81,7 @@ public interface MMDBApi {
 	/**
 	 * {@code GET  /exposure/mmdb/single-sample/by-medium/:medium} : get list of harmonized single-sample records by dtxsid.
 	 *
-	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
+	 * @param medium the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
 	@Operation(summary = "Get harmonized single-sample records by medium",
@@ -88,15 +90,15 @@ public interface MMDBApi {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))
     })
-    @RequestMapping(value = "/single-sample/by-medium/{medium}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		MMDBPage getHarmonizedSingleSampleDataByMedium(@Parameter(required = true, description = "harmonized medium", example = "surface water") @PathVariable("medium") String medium,
-													@RequestParam(required = false, value = "pageNumber", defaultValue = "1") Integer pageNumber);
-
+	@RequestMapping(value = "/single-sample/by-medium", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	MMDBPage getHarmonizedSingleSampleDataByMedium(
+			@Parameter(required = true, description = "harmonized medium", example = "surface water")
+			@RequestParam("medium") String medium,
+			@RequestParam(required = false, value = "pageNumber", defaultValue = "1") Integer pageNumber);
 
 	/**
 	 * {@code GET  /exposure/mmdb/mediums} : get list of all searchable medium categories and their definitions.
 	 *
-	 * @param N/A.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB medium categories and definitions}.
 	 */
 	@Operation(summary = "Get all searchable harmonized medium categories and their corresponding definitions")

@@ -1,8 +1,7 @@
 package gov.epa.ccte.api.exposure.web.rest;
 
 import gov.epa.ccte.api.exposure.domain.FunctionalUseCategory;
-import gov.epa.ccte.api.exposure.projection.FunctionalUseAll;
-import gov.epa.ccte.api.exposure.projection.FunctionalUseCategoryAll;
+import gov.epa.ccte.api.exposure.domain.FunctionalUse;
 import gov.epa.ccte.api.exposure.projection.QsurDataAll;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -31,15 +30,15 @@ public interface FunctionalUseApi {
     @Operation(summary = "Find functional-use data by dtxsid", description = "return functional-use data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
-                    schema=@Schema(oneOf = {FunctionalUseAll.class}))),
+            		schema=@Schema(oneOf = {FunctionalUse.class}))),
     })
     @RequestMapping(value = "/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    List<FunctionalUseAll> getFunctionalUseByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
+    List<FunctionalUse> getFunctionalUseByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
     @Operation(summary = "Find functional-use categories", description = "return all functional-use categories")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
-                    schema = @Schema(oneOf = {FunctionalUseCategoryAll.class}))),
+                    schema = @Schema(oneOf = {FunctionalUseCategory.class}))),
     })
     @RequestMapping(value = "/category", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<FunctionalUseCategory> getFunctionalUseCategory();
@@ -55,11 +54,11 @@ public interface FunctionalUseApi {
     @Operation(summary = "Find functional-use data by batch of dtxsids", description = "return functional-use data  for requested dtxsids.")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
-                    schema=@Schema(oneOf = {FunctionalUseAll.class}))),
+                    schema=@Schema(oneOf = {FunctionalUse.class}))),
     })
     @PostMapping(value = "/search/by-dtxsid/")
     @ResponseBody
-    List<FunctionalUseAll> batchSearchFunctionalUse(@io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, description = "JSON array of DSSTox Substance Identifier",
+    List<FunctionalUse> batchSearchFunctionalUse(@io.swagger.v3.oas.annotations.parameters.RequestBody(required = true, description = "JSON array of DSSTox Substance Identifier",
             content = {@Content(array = @ArraySchema(schema = @Schema(implementation = String.class)),
                     examples = {@ExampleObject("\"[\\\"DTXSID7020182\\\",\\\"DTXSID9020112\\\"]\"")})})
                                                     @RequestBody String[] dtxsids);

@@ -1,6 +1,5 @@
 package gov.epa.ccte.api.exposure.repository;
 
-import gov.epa.ccte.api.exposure.projection.FunctionalUseAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,6 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import gov.epa.ccte.api.exposure.domain.FunctionalUse;
 
 import javax.sql.DataSource;
 
@@ -54,5 +55,5 @@ class FunctionalUseRepositoryTest {
     }
 
     @Test
-    void findByDtxsid() { assertThat(repository.findByDtxsid("DTXSID00183963", FunctionalUseAll.class)).isNotNull(); }
+    void findByDtxsid() { assertThat(repository.findByDtxsid("DTXSID00183963", FunctionalUse.class)).isNotNull(); }
 }
