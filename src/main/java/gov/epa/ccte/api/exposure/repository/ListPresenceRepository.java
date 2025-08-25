@@ -10,4 +10,7 @@ import java.util.List;
 @RepositoryRestResource(exported = false)
 public interface ListPresenceRepository extends JpaRepository<ListPresence, Long> {
     List<ListPresence> findByDtxsid(String dtxsid);
+
+    <T> List<T> findByDtxsidInOrderByDtxsidAsc(String[] dtxsids, Class<T> type);
+
 }

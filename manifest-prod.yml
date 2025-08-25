@@ -5,10 +5,10 @@ applications:
 #      - route: ccte-chemical-p.app.cloud.gov
       - route: api-ccte.epa.gov/exposure
 #      - route: ccte-api.app.cloud.gov/chemical
-    memory: 1G
+    memory: 2G
     instances: 1
     random-route: false
-    path: target/exposure.jar
+    path: target/exposure-2.0.0.jar
     buildpacks:
     - https://github.com/cloudfoundry/java-buildpack
     env:

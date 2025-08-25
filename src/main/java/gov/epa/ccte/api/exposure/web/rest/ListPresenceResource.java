@@ -4,36 +4,31 @@ import gov.epa.ccte.api.exposure.domain.ListPresence;
 import gov.epa.ccte.api.exposure.domain.ListPresenceTag;
 import gov.epa.ccte.api.exposure.repository.ListPresenceRepository;
 import gov.epa.ccte.api.exposure.repository.ListPresenceTagRepository;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import gov.epa.ccte.api.exposure.web.rest.error.HigherNumberOfDtxsidException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.FunctionalUse}s.
- */
-@Tag(name = "List Presence Resource",
-        description = "API endpoints for list presence in exposure data.")
-@SecurityRequirement(name = "api_key")
+
 @Slf4j
 @RestController
-public class ListPresenceResource {
+public class ListPresenceResource implements ListPresenceApi {
     final private ListPresenceRepository listPresenceRepository;
     final private ListPresenceTagRepository listPresenceTagRepository;
+
+    @Value("200")
+    private Integer batchSize;
+
     public ListPresenceResource(ListPresenceRepository listPresenceRepository, ListPresenceTagRepository listPresenceTagRepository) {
         this.listPresenceRepository = listPresenceRepository;
         this.listPresenceTagRepository = listPresenceTagRepository;
     }
 
-    @RequestMapping(value = "exposure/list-presence/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    List<ListPresence> getListPresenceByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid")String dtxsid) {
+    @Override
+    public List<ListPresence> getListPresenceByDtxsid(String dtxsid) {
         log.debug("all functional use for dtxsid = {}", dtxsid);
 
         List<ListPresence> data = listPresenceRepository.findByDtxsid(dtxsid);
@@ -41,11 +36,23 @@ public class ListPresenceResource {
         return data;
     }
 
-    @RequestMapping(value = "exposure/list-presence/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    List<ListPresenceTag> getListPresenceTags(){
+    @Override
+    public List<ListPresenceTag> getListPresenceTags(){
         log.debug("all functional use category");
         List<ListPresenceTag> data = listPresenceTagRepository.findAll();
         return data;
     }
 
+    @Override
+    public @ResponseBody
+    List<ListPresence>batchSearchListPresence(String[] dtxsids) {
+        log.debug("list presence data for dtxsid size = {}", dtxsids.length);
+
+        if(dtxsids.length > batchSize)
+            throw new HigherNumberOfDtxsidException(dtxsids.length, batchSize);
+
+        List<ListPresence> data = listPresenceRepository.findByDtxsidInOrderByDtxsidAsc(dtxsids, ListPresence.class);
+
+        return data;
+    }
 }

@@ -1,6 +1,9 @@
 package gov.epa.ccte.api.exposure.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Column;
@@ -12,8 +15,11 @@ import jakarta.validation.constraints.Size;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "v_functional_use", schema = "ep")
+@Table(name = "mv_t_functional_use_resource", schema = "chemexpo")
 public class FunctionalUse {
     @Id
     @Column(name = "id")
@@ -24,26 +30,26 @@ public class FunctionalUse {
     private String dtxsid;
 
     @Size(max = 50)
-    @Column(name = "datatype", length = 50)
+    @Column(name = "data_type", length = 50)
     private String datatype;
 
-    @Column(name = "docid")
+    @Column(name = "doc_id")
     private Integer docid;
 
     @Size(max = 500)
-    @Column(name = "doctitle", length = 500)
+    @Column(name = "doc_title", length = 500)
     private String doctitle;
 
     @Size(max = 25)
-    @Column(name = "docdate", length = 25)
+    @Column(name = "doc_date", length = 25)
     private String docdate;
 
     @Size(max = 255)
-    @Column(name = "reportedfunction")
+    @Column(name = "reported_function")
     private String reportedfunction;
 
     @Size(max = 100)
-    @Column(name = "functioncategory", length = 100)
+    @Column(name = "function_category", length = 100)
     private String functioncategory;
 
 }

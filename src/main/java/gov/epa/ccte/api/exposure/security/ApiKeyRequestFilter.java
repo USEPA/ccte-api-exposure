@@ -14,13 +14,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -139,8 +132,8 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 
         log.debug("method = {}, origin = {}, referer ={}, refererdHost = {}, path={} ",method, origin, referer, refererdHost, path);
 
-        // if chemical/file path - allow access to images without any api key
-        if(path.contains("/chemical/file/")){
+        // not security for health endpoint
+        if( path.contains("/exposure/health")){
             log.debug("skipping api-key check");
             return false;
         }

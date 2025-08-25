@@ -4,46 +4,55 @@ import gov.epa.ccte.api.exposure.domain.ProductData;
 import gov.epa.ccte.api.exposure.domain.Puc;
 import gov.epa.ccte.api.exposure.repository.ProductDataRepository;
 import gov.epa.ccte.api.exposure.repository.PucRepository;
+import gov.epa.ccte.api.exposure.web.rest.error.HigherNumberOfDtxsidException;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.ProductData}s.
- */
-@Tag(name = "Product Data Resource",
-        description = "API endpoints for prodcut data in exposure data.")
-@SecurityRequirement(name = "api_key")
+
 @Slf4j
 @RestController
-public class ProductDataResource {
+public class ProductDataResource implements ProductDataApi {
 
     final private ProductDataRepository productDataRepository;
     final private PucRepository pucRepository;
 
-    public ProductDataResource(ProductDataRepository productDataRepository, PucRepository pucRepository, PucRepository pucRepository1) {
+    @Value("200")
+    private Integer batchSize;
+
+    public ProductDataResource(ProductDataRepository productDataRepository, PucRepository pucRepository) {
         this.productDataRepository = productDataRepository;
-        this.pucRepository = pucRepository1;
+        this.pucRepository = pucRepository;
     }
 
-    @RequestMapping(value = "exposure/product-data/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    List<ProductData> getProductDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid")String dtxsid) {
-        log.debug("all functional use for dtxsid = {}", dtxsid);
+    @Override
+    public List<ProductData> getProductDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid) {
+        log.debug("product data for dtxsid = {}", dtxsid);
 
        return productDataRepository.findByDtxsid(dtxsid);
 
     }
 
-    @RequestMapping(value = "exposure/product-data/puc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Puc> getProductDataPuc(){
+    @Override
+    public @ResponseBody
+    List<ProductData>batchSearchProductData(String[] dtxsids) {
+        log.debug("product data for dtxsid size = {}", dtxsids.length);
+
+        if(dtxsids.length > batchSize)
+            throw new HigherNumberOfDtxsidException(dtxsids.length, batchSize);
+
+        List<ProductData> data = productDataRepository.findByDtxsidInOrderByDtxsidAsc(dtxsids, ProductData.class);
+
+        return data;
+    }
+
+    @Override
+    public List<Puc> getProductDataPuc(){
         log.debug("all puc values");
 
         List<Puc> data = pucRepository.findAll();
