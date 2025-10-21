@@ -13,7 +13,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import gov.epa.ccte.api.exposure.domain.ProductData;
+import gov.epa.ccte.api.exposure.domain.GenExpoPrediction;
 
 import javax.sql.DataSource;
 
@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.*;
 @DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ProductDataRepositoryTest {
+public class GenExpoPredictionRepositoryTest {
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> pgsqldb = new PostgreSQLContainer<>("postgres:16-alpine");
@@ -33,7 +33,7 @@ class ProductDataRepositoryTest {
     private DataSource dataSource;
     @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private TestEntityManager entityManager;
-    @Autowired private ProductDataRepository repository;
+    @Autowired private GenExpoPredictionRepository repository;
 
     @Test
     void connectionEstablished(){
@@ -52,21 +52,27 @@ class ProductDataRepositoryTest {
     // Now test data loaded or not
     @Test
     void testDataLoaded() {
-        assertThat(repository.findAll().size()).isEqualTo(10);
+        assertThat(repository.findAll().size()).isEqualTo(2);
     }
-
+    
     @Test
-    void testProductDataByDtxsid() { 
-    	assertThat(repository.findByDtxsid("DTXSID7020182")).size().isEqualTo(5);
+    void testGenExpoPredictionDataByDtxsid() { 
+    	assertThat(repository.findByDtxsid("DTXSID7020182", GenExpoPrediction.class)).size().isEqualTo(1);
         
-    	assertThat(repository.findByDtxsid("DTXSID9020112")).size().isEqualTo(5);
-    
+    	assertThat(repository.findByDtxsid("DTXSID9020112", GenExpoPrediction.class)).size().isEqualTo(1);
     }
     
     @Test
-    void testProductDataByBatchDtxsid() {
+    void testGenExpoPredicitonDataByBatchDtxsid() {
     	String[] dtxsids = {"DTXSID7020182","DTXSID9020112"};
-    	assertThat(repository.findByDtxsidInOrderByDtxsidAsc(dtxsids, ProductData.class)).size().isEqualTo(10);
+    	assertThat(repository.findByDtxsidInOrderByDtxsidAsc(dtxsids, GenExpoPrediction.class)).size().isEqualTo(2);
         
+    }
+    
+    @Test
+    void testGenExpoPredictionDataByDtxsidCcd() { 
+    	assertThat(repository.findByDtxsid("DTXSID7020182")).size().isEqualTo(6);
+        
+    	assertThat(repository.findByDtxsid("DTXSID9020112")).size().isEqualTo(6);
     }
 }

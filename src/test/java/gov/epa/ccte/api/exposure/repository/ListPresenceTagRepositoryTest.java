@@ -8,14 +8,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import javax.sql.DataSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
+@Sql(scripts = {"/schema.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Testcontainers
 @DataJpaTest
 @ActiveProfiles("test")
@@ -23,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ListPresenceTagRepositoryTest {
     @Container
     @ServiceConnection
-    static PostgreSQLContainer<?> pgsqldb = new PostgreSQLContainer<>("postgres:13-alpine");
+    static PostgreSQLContainer<?> pgsqldb = new PostgreSQLContainer<>("postgres:16-alpine");
 
     @Autowired
     private DataSource dataSource;
@@ -45,10 +47,9 @@ class ListPresenceTagRepositoryTest {
         assertThat(repository).isNotNull();
     }
 
-    // Now test data loaded or not
     @Test
-    void testDataLoaded() {
-        assertThat(repository.findAll().size()).isEqualTo(15);
+    void testAllTags() {
+        assertThat(repository.findAll().size()).isEqualTo(10);
     }
 
 }

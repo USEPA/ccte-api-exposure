@@ -11,11 +11,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.test.context.jdbc.Sql;
 
 import javax.sql.DataSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
+@Sql(scripts = {"/schema.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Testcontainers
 @DataJpaTest
 @ActiveProfiles("test")
@@ -23,13 +25,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class FunctionalUseCategoryRepositoryTest {
     @Container
     @ServiceConnection
-    static PostgreSQLContainer<?> pgsqldb = new PostgreSQLContainer<>("postgres:13-alpine");
+    static PostgreSQLContainer<?> pgsqldb = new PostgreSQLContainer<>("postgres:16-alpine");
 
     @Autowired
     private DataSource dataSource;
-    @Autowired private JdbcTemplate jdbcTemplate;
-    @Autowired private TestEntityManager entityManager;
-    @Autowired private FunctionalUseCategoryRepository repository;
+    @Autowired 
+    private JdbcTemplate jdbcTemplate;
+    @Autowired 
+    private TestEntityManager entityManager;
+    @Autowired 
+    private FunctionalUseCategoryRepository repository;
 
     @Test
     void connectionEstablished(){
@@ -45,9 +50,9 @@ class FunctionalUseCategoryRepositoryTest {
         assertThat(repository).isNotNull();
     }
 
-    // Now test data loaded or not
     @Test
-    void testDataLoaded() {
-        assertThat(repository.findAll().size()).isEqualTo(9);
+    void testAllFunctionalUseCategories() {
+        assertThat(repository.findAll().size()).isEqualTo(10);
+        
     }
 }
