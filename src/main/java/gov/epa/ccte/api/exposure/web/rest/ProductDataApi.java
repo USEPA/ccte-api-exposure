@@ -21,7 +21,7 @@ import java.util.List;
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.ProductData}s.
  */
 @Tag(name = "Product Data Resource",
-        description = "Collection of endpoints with product data to info how chemicals are used in commerce and/or occur in consumer and industrial products. These curated data are sourced from US EPA's Chemicals and Products Database (CPDat).")
+        description = "Collection of endpoints pertaining to product data. These data provide information on how chemicals are used in commerce or by consumers as well as weight fractions of ingredients in products, where available. These curated data are sourced from US EPA's Chemicals and Products Database (CPDat).")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/product-data" , produces = MediaType.APPLICATION_JSON_VALUE )
 public interface ProductDataApi {
@@ -46,7 +46,7 @@ public interface ProductDataApi {
                     examples = {@ExampleObject("\"[\\\"DTXSID7020182\\\",\\\"DTXSID9020112\\\"]\"")})})
                                                @RequestBody String[] dtxsids);
 
-    @Operation(summary = "Get all product use categories", description = "return all product use category options. Products are organized by product use categories (PUCs), which classify how chemicals are used in consumer and industrial products.")
+    @Operation(summary = "Get all product use categories", description = "return all product use category options. Products are organized by product use categories (PUCs): a controlled vocabulary developed by EPA that seeks to organize products in a way relevant for exposure modeling.")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {Puc.class}))),

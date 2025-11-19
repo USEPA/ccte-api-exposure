@@ -21,7 +21,7 @@ import java.util.List;
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.FunctionalUse}s.
  */
 @Tag(name = "List Presence Resource",
-        description = "Collection of endpoints with list presence data, reflecting the occurrence of chemicals on lists present in publicly available documents (sourced from a variety of federal and state agencies and trade associations). These lists are tagged with List Presence Keywords (LPKs) that together describe information contained in the document relevant to how the chemical was used.")
+        description = "Collection of endpoints with list presence data, reflecting the occurrence of chemicals on lists present in publicly available documents (sourced from a variety of federal and state agencies and trade associations). These lists are tagged with List Presence Keywords (LPKs) which is a controlled vocabulary developed by EPA that describe broad use information for a chemical useful for general categorization of chemicals across uses, populations, and/or regulatory groups. These curated data are sourced from US EPA's Chemicals and Products Database (CPDat).")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/list-presence", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface ListPresenceApi {

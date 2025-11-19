@@ -22,7 +22,7 @@ import java.util.List;
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.FunctionalUse}s.
  */
 @Tag(name = "Functional Use Resource",
-        description = "Collection of endpoints with functional use data. Functional use data for chemical exposures describes the role of a chemical in a product or process, which helps predict and assess exposure risk.")
+        description = "Collection of endpoints with functional use data. Functional use describes a chemical's role in a product or process, which can help determine exposure pathways used to assess chemical exposure. These curated data are sourced from US EPA's Chemicals and Products Database (CPDat).")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/functional-use", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface FunctionalUseApi {
