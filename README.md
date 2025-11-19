@@ -4,14 +4,14 @@
 
 Originating from the US EPA's Center of Computational Toxicology and Exposure (CCTE), the CTX Exposure API is a RESTful API designed to manage and provide Exposure data. It interacts with a PostgreSQL database and offers various endpoints for Exposure-related operations. More information on the CTX API development and utility, as well as guidance on how to technically access and use them, is available here: https://www.epa.gov/comptox-tools/computational-toxicology-and-exposure-apis
 
-If you would like to report a bug or have other questions related to the CTX APIs, please contact CTX API Admins (ccte_api@epa.gov)
+If you would like to report a bug or have other questions related to the CTX APIs, please contact the CTX API Admins (ccte_api@epa.gov).
 
 If you are interested in contributing or want to report a bug, please submit a issue or start a discussion. See [CONTRIBUTING](https://github.com/USEPA/ccte-api-exposure/blob/dev/CONTRIBUTING.md) for more information.
 
 ### Available Data
 Data underlying the Exposure API comes from the [Chemicals and Products Database (CPDat)](https://www.nature.com/articles/sdata2018125), [httk](https://github.com/USEPA/CompTox-ExpoCast-httk) simulation data, and predictions from Systematic Empirical Evaluation of Models (SEEM) and [Quantitative Structure Use Relationship (QSUR) models](https://pubs.rsc.org/en/content/articlelanding/2017/gc/c6gc02744j).
 
-For exposure-related questions, contact the Chemical Exposure Knowledgebase team (chemexpo.support@epa.gov)
+For exposure-related questions, review the  ChemExpo User guide (https://comptox.epa.gov/chemexpo/static/user_guide/) or contact the Chemical Exposure Knowledgebase team (chemexpo.support@epa.gov).
 
 ### Technologies Used
 - **Java**: Programming language used for the development of the application.
