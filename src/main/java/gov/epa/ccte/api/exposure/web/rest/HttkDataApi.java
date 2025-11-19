@@ -19,13 +19,13 @@ import java.util.List;
 /**
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.HttkData}s.
  */
-@Tag(name = "Httk Data Resource",
-        description = "API endpoints for httk data in exposure data.")
+@Tag(name = "httk Data Resource",
+        description = "Collection of endpoints with data to support toxicokinetic modeling applications sourced from the US EPA high throughput toxicokinetics `httk` R package. Models to predict toxicokinetics (chemical absorption, distribution, metabolism, and excretion by the body) are tailored using chemical-specific in vitro data and physiological information.")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/httk", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface HttkDataApi {
 
-    @Operation(summary = "Find httk data by dtxsid", description = "return httk data for requested dtxsid")
+    @Operation(summary = "Get httk data by dtxsid", description = "return httk data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {HttkData.class}))),
@@ -34,7 +34,7 @@ public interface HttkDataApi {
     List<HttkData> getHttkDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232")
                                        @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find httk data by batch of dtxsids", description = "return httk data for requested dtxsids")
+    @Operation(summary = "Get httk data by batch of dtxsids", description = "return httk data for requested dtxsids")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {HttkData.class}))),

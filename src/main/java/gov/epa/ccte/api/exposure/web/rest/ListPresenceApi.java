@@ -21,12 +21,12 @@ import java.util.List;
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.FunctionalUse}s.
  */
 @Tag(name = "List Presence Resource",
-        description = "API endpoints for list presence in exposure data.")
+        description = "Collection of endpoints with list presence data, reflecting the occurrence of chemicals on lists present in publicly available documents (sourced from a variety of federal and state agencies and trade associations). These lists are tagged with List Presence Keywords (LPKs) that together describe information contained in the document relevant to how the chemical was used.")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/list-presence", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface ListPresenceApi {
 
-    @Operation(summary = "Find list presence data by dtxsid", description = "return list presence data for requested dtxsid")
+    @Operation(summary = "Get list presence data by dtxsid", description = "return list presence data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {ListPresence.class}))),
@@ -34,7 +34,7 @@ public interface ListPresenceApi {
     @RequestMapping(value = "/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<ListPresence> getListPresenceByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Produce list presence tags", description = "return list presence tags")
+    @Operation(summary = "Get list presence tags", description = "return list presence tags")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {ListPresenceTag.class}))),
@@ -42,7 +42,7 @@ public interface ListPresenceApi {
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<ListPresenceTag> getListPresenceTags();
 
-    @Operation(summary = "Find list presence data by batch of dtxsids", description = "return list presence data for requested dtxsids")
+    @Operation(summary = "Get list presence data for a batch of dtxsids", description = "return list presence data for requested dtxsids")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {ListPresence.class}))),

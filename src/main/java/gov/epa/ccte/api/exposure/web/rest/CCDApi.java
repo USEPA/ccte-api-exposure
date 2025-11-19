@@ -28,12 +28,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * REST controller for getting available CCD Data Resources.
  */
 @Tag(name = "CCD Data Resource",
-        description = "API endpoints for CompTox Chemicals Dashboard exposure tabs.")
+        description = "Collection of endpoints used to populate CompTox Chemicals Dashboard Exposure tabs")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/ccd", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface CCDApi {
 
-    @Operation(summary = "Find Chemical Weight Fractions data by dtxsid", description = "return Chemical Weight Fractions data for requested dtxsid")
+    @Operation(summary = "Get Chemical Weight Fractions data by dtxsid", description = "return Chemical Weight Fractions data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDChemicalWeightFractions.class}))),
@@ -41,7 +41,7 @@ public interface CCDApi {
     @RequestMapping(value = "/chem-weight-fractions/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<CCDChemicalWeightFractions> getChemicalWeightFractionsByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find General Use Keywords data by dtxsid", description = "return General Use Keywords data for requested dtxsid")
+    @Operation(summary = "Get General Use Keywords data by dtxsid", description = "return General Use Keywords data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDGeneralUseKeywords.class}))),
@@ -49,7 +49,7 @@ public interface CCDApi {
     @RequestMapping(value = "/keywords/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<CCDGeneralUseKeywords> getGeneralUseKeywordsByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find Product Use Category data by dtxsid", description = "return Product Use Category data for requested dtxsid")
+    @Operation(summary = "Get Product Use Category data by dtxsid", description = "return Product Use Category data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDProductUseCategory.class}))),
@@ -57,7 +57,7 @@ public interface CCDApi {
     @RequestMapping(value = "/puc/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<CCDProductUseCategory> getProductUseCategoryByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find Reported Functional Use data by dtxsid", description = "return Reported Functional Use data for requested dtxsid")
+    @Operation(summary = "Get Reported Functional Use data by dtxsid", description = "return Reported Functional Use data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDReportedFunctionalUse.class}))),
@@ -65,11 +65,9 @@ public interface CCDApi {
     @RequestMapping(value = "/functional-use/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<CCDReportedFunctionalUse> getReportedFunctionalUseByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find Biomonitoring data by dtxsid with ccd projection", 
-    		   description = "return NHANES Inferences for requested dtxsid" +
-                             "there is an available projection for ccd exposure biomonitoring page:" +
-    				         "ccd-biomonitoring" +
-                             "If no projection is specified, the default CCDBiomonitoring data will be returned")
+    @Operation(summary = "Get Biomonitoring data by dtxsid with ccd projection", 
+    		   description = "return NHANES inferences data for requested dtxsid. There is an available projection aligned with what's available on the CCD exposure biomonitoring tab: ccd-biomonitoring. " +
+                             "If no projection is specified, a default CCDBiomonitoring projection will be returned.")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDBiomonitoring.class, CCDBiomonitoringAll.class}))),
@@ -81,7 +79,7 @@ public interface CCDApi {
             	                                "If omitted, the default CCDBiomonitoring data is returned.")
             	                        @RequestParam(value = "projection", required = false) String projection);
 
-    @Operation(summary = "Find Production Volume data by dtxsid", description = "return Production Volume data for requested dtxsid")
+    @Operation(summary = "Get Production Volume data by dtxsid", description = "return Production Volume data for requested dtxsid")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDProductionVolume.class}))),

@@ -20,12 +20,12 @@ import java.util.List;
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.DemoExpoPrediction}s.
  */
 @Tag(name = "Demographic Exposure Prediction Resource",
-        description = "API endpoints for demographic prediction in exposure data.")
+        description = "Collection of endpoints with SEEM demographic exposure prediction data. SEEM (Systematic Empirical Evaluation of Models) is a framework developed by the US EPA to predict exposure to chemicals across the general population and demographic subsets of the US.")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/seem/demographic", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface DemoExpoPredictionApi {
 
-    @Operation(summary = "Find demographic prediction SEEMs data by dtxsid", description = "return demographic prediction SEEMs data for requested dtxsid")
+    @Operation(summary = "Get SEEM demographic prediction data by dtxsid", description = "return SEEM demographic prediction data for requested dtxsid")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {DemoExpoPrediction.class}))),
@@ -36,7 +36,7 @@ public interface DemoExpoPredictionApi {
     									@Parameter(description = "Specifies whether to use projection. Optional: ccd-demographic.")
     									@RequestParam(value = "projection", required = false) String projection);
 
-    @Operation(summary = "Find demographic prediction SEEMs data by batch of dtxsids", description = "return demographic prediction SEEMs data for requested dtxsids")
+    @Operation(summary = "Get SEEM demographic prediction data for batch of dtxsids", description = "return SEEM demographic prediction data for requested dtxsids")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {DemoExpoPrediction.class}))),
