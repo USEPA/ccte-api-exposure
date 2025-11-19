@@ -35,8 +35,8 @@ public interface MmDbApi {
 	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized aggregate records by dtxsid",
-            description = "return harmonized aggregate records for requested dtxsid")
+	@Operation(summary = "Get harmonized aggregate records by DTXSID",
+            description = "return harmonized aggregate records for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBAggregate.class})))
@@ -68,8 +68,8 @@ public interface MmDbApi {
 	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized single-sample records by dtxsid",
-            description = "return harmonized single-sample records for requested dtxsid")
+	@Operation(summary = "Get harmonized single-sample records by DTXSID",
+            description = "return harmonized single-sample records for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))

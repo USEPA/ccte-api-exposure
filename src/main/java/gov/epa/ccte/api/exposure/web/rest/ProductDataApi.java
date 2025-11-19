@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping( value = "exposure/product-data" , produces = MediaType.APPLICATION_JSON_VALUE )
 public interface ProductDataApi {
 
-    @Operation(summary = "Get product data by dtxsid", description = "return product data for requested dtxsid")
+    @Operation(summary = "Get product data by DTXSID", description = "return product data for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {ProductData.class}))),
@@ -34,7 +34,7 @@ public interface ProductDataApi {
     @RequestMapping(value = "/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<ProductData> getProductDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Get product data for a batch of dtxsids", description = "return product data for requested dtxsids")
+    @Operation(summary = "Get product data for a batch of DTXSIDs", description = "return product data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {ProductData.class}))),

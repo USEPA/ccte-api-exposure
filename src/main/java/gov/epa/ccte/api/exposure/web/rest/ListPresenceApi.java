@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping( value = "exposure/list-presence", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface ListPresenceApi {
 
-    @Operation(summary = "Get list presence data by dtxsid", description = "return list presence data for requested dtxsid")
+    @Operation(summary = "Get list presence data by DTXSID", description = "return list presence data for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {ListPresence.class}))),
@@ -42,7 +42,7 @@ public interface ListPresenceApi {
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<ListPresenceTag> getListPresenceTags();
 
-    @Operation(summary = "Get list presence data for a batch of dtxsids", description = "return list presence data for requested dtxsids")
+    @Operation(summary = "Get list presence data for a batch of DTXSIDs", description = "return list presence data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {ListPresence.class}))),

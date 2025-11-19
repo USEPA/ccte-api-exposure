@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping( value = "exposure/httk", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface HttkDataApi {
 
-    @Operation(summary = "Get httk data by dtxsid", description = "return httk data for requested dtxsid")
+    @Operation(summary = "Get httk data by DTXSID", description = "return httk data for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {HttkData.class}))),
@@ -34,7 +34,7 @@ public interface HttkDataApi {
     List<HttkData> getHttkDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232")
                                        @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Get httk data by batch of dtxsids", description = "return httk data for requested dtxsids")
+    @Operation(summary = "Get httk data by batch of DTXSIDs", description = "return httk data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {HttkData.class}))),
