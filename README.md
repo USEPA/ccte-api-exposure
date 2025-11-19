@@ -1,4 +1,8 @@
-# Computational Toxicology and Exposure (CTX) APIs: CTX Exposure API
+# Computational Toxicology and Exposure (CTX) APIs - CTX Exposure API
+
+<!-- badges: start -->
+[![Active](http://img.shields.io/badge/Status-Active-green.svg)](https://comptox.epa.gov/ctx-api/exposure/health) 
+<!-- badges: end -->
 
 ## Welcome to the GitHub repository for the CTX Exposure API
 
