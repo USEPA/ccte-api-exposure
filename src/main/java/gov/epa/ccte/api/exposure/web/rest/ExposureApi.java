@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.GetMapping;
         description = "API endpoint for checking database connection of exposure application.")
 public interface ExposureApi {
     @GetMapping("/exposure/health")
-    ResponseEntity health();
+    ResponseEntity<?> health();
 }
