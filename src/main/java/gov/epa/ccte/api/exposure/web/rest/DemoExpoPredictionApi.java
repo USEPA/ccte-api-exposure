@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping( value = "exposure/seem/demographic", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface DemoExpoPredictionApi {
 
-    @Operation(summary = "Get SEEM demographic prediction data by DTXSID", description = "return SEEM demographic prediction data for requested DTXSID")
+    @Operation(summary = "Get SEEM Demographic Exposure Prediction data by DTXSID", description = "return SEEM demographic prediction data for requested DTXSID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {DemoExpoPrediction.class}))),
@@ -36,7 +36,7 @@ public interface DemoExpoPredictionApi {
     									@Parameter(description = "Specifies whether to use projection. Optional: ccd-demographic.")
     									@RequestParam(value = "projection", required = false) String projection);
 
-    @Operation(summary = "Get SEEM demographic prediction data for batch of DTXSIDs", description = "return SEEM demographic prediction data for requested DTXSIDs")
+    @Operation(summary = "Get SEEM Demographic Exposure Prediction data for batch of DTXSIDs", description = "return SEEM demographic prediction data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {DemoExpoPrediction.class}))),

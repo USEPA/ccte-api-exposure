@@ -35,7 +35,7 @@ public interface MmDbApi {
 	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized aggregate records by DTXSID",
+	@Operation(summary = "Get Aggregate data by DTXSID",
             description = "return harmonized aggregate records for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
@@ -50,7 +50,7 @@ public interface MmDbApi {
 	 * @param medium the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized aggregate records by medium",
+	@Operation(summary = "Get Aggregate data by Medium",
             description = "return harmonized aggregate records for requested medium")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
@@ -68,7 +68,7 @@ public interface MmDbApi {
 	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized single-sample records by DTXSID",
+	@Operation(summary = "Get Single Sample data by DTXSID",
             description = "return harmonized single-sample records for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
@@ -84,8 +84,8 @@ public interface MmDbApi {
 	 * @param medium the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Find harmonized single-sample records by medium",
-            description = "return harmonized single-sample records for requested medium")
+	@Operation(summary = "Get Single Sample data by Medium",
+            description = "return harmonized single sample records for requested medium")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))
@@ -101,7 +101,7 @@ public interface MmDbApi {
 	 *
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB medium categories and definitions}.
 	 */
-	@Operation(summary = "Get all media options",
+	@Operation(summary = "Get all Media options",
             description = "return all harmonized medium options and their corresponding definitions")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",

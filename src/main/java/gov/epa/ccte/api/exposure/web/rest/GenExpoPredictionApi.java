@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping( value = "exposure/seem/general", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface GenExpoPredictionApi {
 
-    @Operation(summary = "Get SEEM general exposure prediction data by DTXSID", description = "return SEEM general exposure prediction data for requested DTXSID")
+    @Operation(summary = "Get SEEM General Exposure Prediction data by DTXSID", description = "return SEEM general exposure prediction data for requested DTXSID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {GenExpoPrediction.class}))),
@@ -36,7 +36,7 @@ public interface GenExpoPredictionApi {
     									@Parameter(description = "Specifies whether to use projection. Optional: ccd-general.")
     									@RequestParam(value = "projection", required = false) String projection);
 
-    @Operation(summary = "Get SEEM general exposure prediction data for a batch of DTXSIDs", description = "return SEEM general exposure prediction data for requested DTXSIDs")
+    @Operation(summary = "Get SEEM General Exposure Prediction data for a batch of DTXSIDs", description = "return SEEM general exposure prediction data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {GenExpoPrediction.class}))),

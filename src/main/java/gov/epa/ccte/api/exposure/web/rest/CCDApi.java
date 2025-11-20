@@ -79,7 +79,7 @@ public interface CCDApi {
             	                                "If omitted, the default CCDBiomonitoring data is returned.")
             	                        @RequestParam(value = "projection", required = false) String projection);
 
-    @Operation(summary = "Get Production Volume data by dtxsid", description = "return Production Volume data for requested dtxsid")
+    @Operation(summary = "Get Production Volume data by DTXSID", description = "return Production Volume data for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {CCDProductionVolume.class}))),

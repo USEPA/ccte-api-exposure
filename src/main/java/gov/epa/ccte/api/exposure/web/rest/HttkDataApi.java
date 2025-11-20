@@ -34,7 +34,7 @@ public interface HttkDataApi {
     List<HttkData> getHttkDataByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232")
                                        @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Get httk data by batch of DTXSIDs", description = "return httk data for requested DTXSIDs")
+    @Operation(summary = "Get httk data for a batch of DTXSIDs", description = "return httk data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {HttkData.class}))),
