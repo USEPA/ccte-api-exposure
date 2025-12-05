@@ -18,7 +18,7 @@ jobs:
        with:
          token: ${{ secrets.GITHUB_TOKEN }}
          format: openapi
-         target: 'https://api-ccte-stg.epa.gov/docs/exposure.json'
+         target: 'https://ctx-api-stg.ccte.epa.gov/docs/exposure.json'
          cmd_options: '-a'
        env:
          ZAP_AUTH_HEADER_VALUE: "x-api-key=${{ secrets.X_API_KEY }}" 
