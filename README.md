@@ -12,7 +12,7 @@ Originating from the US EPA's Center of Computational Toxicology and Exposure (C
 - If you are interested in contributing, please submit a issue or start a discussion. See [CONTRIBUTING](https://github.com/USEPA/ccte-api-hazard/blob/dev/CONTRIBUTING.md) for more information.
 
 ### Available Data
-Data underlying the Exposure API comes from the [Chemicals and Products Database (CPDat)](https://www.nature.com/articles/sdata2018125), the Multimedia Monitoring Database (MMDB)](https://epa.figshare.com/articles/dataset/Multimedia_Monitoring_Database_MMDB_/17065024), [httk](https://github.com/USEPA/CompTox-ExpoCast-httk) simulation data, and predictions from Systematic Empirical Evaluation of Models (SEEM) and [Quantitative Structure Use Relationship (QSUR) models](https://github.com/HumanExposure/qsur).
+Data underlying the Exposure API comes from the [Chemicals and Products Database (CPDat)](https://www.nature.com/articles/sdata2018125), the [Multimedia Monitoring Database (MMDB)](https://epa.figshare.com/articles/dataset/Multimedia_Monitoring_Database_MMDB_/17065024), [httk](https://github.com/USEPA/CompTox-ExpoCast-httk) simulation data, and predictions from Systematic Empirical Evaluation of Models (SEEM) and [Quantitative Structure Use Relationship (QSUR) models](https://github.com/HumanExposure/qsur).
 
 For exposure-related questions, review the [ChemExpo User guide](https://comptox.epa.gov/chemexpo/static/user_guide/) or contact the [Chemical Exposure Knowledgebase team](mailto:chemexpo.support@epa.gov).
 
