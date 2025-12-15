@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @Tag(name = "MMDB Resource",
-        description = "API endpoints for collecting data for MMDB database.")
+        description = "Collection of endpoints with harmonized data from the Multimedia Monitoring Database (MMDB) to inform on chemical presence in various media like air, water, soil, and human tissues.")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/mmdb")
 public interface MmDbApi {
@@ -35,8 +35,8 @@ public interface MmDbApi {
 	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized aggregate records by dtxsid",
-            description = "Specify the dtxsid as part of the path.")
+	@Operation(summary = "Get Aggregate data by DTXSID",
+            description = "return harmonized aggregate records for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBAggregate.class})))
@@ -50,8 +50,8 @@ public interface MmDbApi {
 	 * @param medium the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized aggregate records by medium",
-            description = "Specify the medium as part of the path.")
+	@Operation(summary = "Get Aggregate data by Medium",
+            description = "return harmonized aggregate records for requested medium")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBAggregate.class})))
@@ -68,8 +68,8 @@ public interface MmDbApi {
 	 * @param dtxsid the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized single-sample records by dtxsid",
-            description = "Specify the dtxsid as part of the path.")
+	@Operation(summary = "Get Single Sample data by DTXSID",
+            description = "return harmonized single-sample records for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))
@@ -84,8 +84,8 @@ public interface MmDbApi {
 	 * @param medium the matching dtxsid of the MMDB aggregate records to retrieve
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB aggregate records}.
 	 */
-	@Operation(summary = "Get harmonized single-sample records by medium",
-            description = "Specify the medium as part of the path.")
+	@Operation(summary = "Get Single Sample data by Medium",
+            description = "return harmonized single sample records for requested medium")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBSingleSample.class})))
@@ -101,7 +101,8 @@ public interface MmDbApi {
 	 *
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the list of MMDB medium categories and definitions}.
 	 */
-	@Operation(summary = "Get all searchable harmonized medium categories and their corresponding definitions")
+	@Operation(summary = "Get all Media options",
+            description = "return all harmonized medium options and their corresponding definitions")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {MMDBMediaDescSummary.class})))

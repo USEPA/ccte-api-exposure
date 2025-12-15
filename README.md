@@ -1,14 +1,22 @@
-# Exposure Microservice (ccte-api-exposure)
+# Computational Toxicology and Exposure (CTX) APIs - CTX Exposure API
 
-## Overview
-The Exposure Microservice is a RESTful API designed to manage and provide Exposure data. It interacts with a PostgreSQL database and offers various endpoints for Exposure-related operations.
+<!-- badges: start -->
+[![Active](http://img.shields.io/badge/Status-Active-green.svg)](https://comptox.epa.gov/ctx-api/exposure/health) 
+<!-- badges: end -->
 
-## Available Data
-Data underlying the Exposure API comes from the Chemicals and Products Database (CPDat) [Learn more: The Chemical and Products Database, a resource for exposure-relevant data on chemicals in consumer products](https://www.nature.com/articles/sdata2018125) and predictions from EPA’s Quantitative Structure Use Relationship (QSUR) models [Learn more: High-throughput screening of chemicals as functional substitutes using structure-based classification models](https://pubs.rsc.org/en/content/articlelanding/2017/gc/c6gc02744j).
+## Welcome to the GitHub repository for the CTX Exposure API
 
-For exposure-related questions, contact the Chemical Exposure Knowledgebase team (chemexpo.support@epa.gov).
+Originating from the US EPA's Center of Computational Toxicology and Exposure (CCTE), the CTX Exposure API is a RESTful API designed to manage and provide Exposure data. It interacts with a PostgreSQL database and offers various endpoints for Exposure-related operations. More information on the CTX API development and utility, as well as guidance on how to technically access and use them, is available here: https://www.epa.gov/comptox-tools/computational-toxicology-and-exposure-apis
 
-## Technologies Used
+- If you would like to report a bug or have other questions related to the CTX APIs, please contact the [CTX API Admins](mailto:ccte_api@epa.gov).
+- If you are interested in contributing, please submit a issue or start a discussion. See [CONTRIBUTING](https://github.com/USEPA/ccte-api-hazard/blob/dev/CONTRIBUTING.md) for more information.
+
+### Available Data
+Data underlying the Exposure API comes from the [Chemicals and Products Database (CPDat)](https://www.nature.com/articles/sdata2018125), the Multimedia Monitoring Database (MMDB)](https://epa.figshare.com/articles/dataset/Multimedia_Monitoring_Database_MMDB_/17065024), [httk](https://github.com/USEPA/CompTox-ExpoCast-httk) simulation data, and predictions from Systematic Empirical Evaluation of Models (SEEM) and [Quantitative Structure Use Relationship (QSUR) models](https://github.com/HumanExposure/qsur).
+
+For exposure-related questions, review the [ChemExpo User guide](https://comptox.epa.gov/chemexpo/static/user_guide/) or contact the [Chemical Exposure Knowledgebase team](mailto:chemexpo.support@epa.gov).
+
+### Technologies Used
 - **Java**: Programming language used for the development of the application.
 - **Spring Boot**: Framework used to create stand-alone, production-grade Spring-based applications.
 - **Spring Data JPA**: Part of the Spring Data family, used to simplify data access and persistence.
@@ -20,13 +28,13 @@ For exposure-related questions, contact the Chemical Exposure Knowledgebase team
 - **Swagger/OpenAPI**: Used for API documentation and testing.
 - **Testcontainers**: Java library used for integration testing with Docker containers.
 
-## Configuration
+### Configuration
 The application configuration is managed through properties files. The main configuration file is `application.properties`, and environment-specific configurations can be added as needed.
 
-## Build and Deployment
+### Build and Deployment
 The project uses Maven for build and deployment processes. Continuous integration and deployment can be set up using tools like GitHub Actions.
 
-## Getting Started
+### Getting Started
 To build and run the project locally, use the following Maven commands:
 
 ```sh
@@ -34,7 +42,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-## Project Structure
+### Project Structure
 ```plaintext
 src/
 ├── main/
@@ -51,7 +59,7 @@ src/
 └── test/
 ```
 
-## Dependencies
+### Dependencies
 - `spring-boot-starter-web`
 - `spring-boot-starter-data-rest`
 - `spring-boot-starter-data-jpa`
@@ -63,12 +71,6 @@ src/
 - `spring-boot-testcontainers`
 - `testcontainers`
 - `jackson-datatype-hibernate6`
-
-## Contributing
-Contributions are welcome! Please read the `CONTRIBUTING.md` file for guidelines.
-
-## Contact
-For any inquiries, please contact the project maintainer. **[Rashid, Asif](https://github.com/asif-rashid)** , **[Dirks, Brianna](https://github.com/bridirks)**, **[Feshuk, Madison](https://github.com/madison-feshuk)**
 
 ## Disclaimer
 The United States Environmental Protection Agency (EPA) GitHub project code is provided on an "as is" basis and the user assumes responsibility for its use. EPA has relinquished control of the information and no longer has responsibility to protect the integrity, confidentiality, or availability of the information. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by EPA. The EPA seal and logo shall not be used in any manner to imply endorsement of any commercial product or activity by EPA or the United States Government. 

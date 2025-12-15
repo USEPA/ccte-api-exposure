@@ -22,12 +22,12 @@ import java.util.List;
  * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.FunctionalUse}s.
  */
 @Tag(name = "Functional Use Resource",
-        description = "API endpoints for functional use in exposure data.")
+        description = "Collection of endpoints with functional use data. Functional use describes a chemical's role in a product or process, which can help determine exposure pathways used to assess chemical exposure. These curated data are sourced from US EPA's Chemicals and Products Database (CPDat).")
 @SecurityRequirement(name = "api_key")
 @RequestMapping( value = "exposure/functional-use", produces = MediaType.APPLICATION_JSON_VALUE )
 public interface FunctionalUseApi {
 
-    @Operation(summary = "Find functional-use data by dtxsid", description = "return functional-use data for requested dtxsid")
+    @Operation(summary = "Get functional use data by DTXSID", description = "return functional use data for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
             		schema=@Schema(oneOf = {FunctionalUse.class}))),
@@ -35,7 +35,7 @@ public interface FunctionalUseApi {
     @RequestMapping(value = "/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<FunctionalUse> getFunctionalUseByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find functional-use categories", description = "return all functional-use categories")
+    @Operation(summary = "Get functional use categories", description = "return all functional use categories")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {FunctionalUseCategory.class}))),
@@ -43,7 +43,7 @@ public interface FunctionalUseApi {
     @RequestMapping(value = "/category", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<FunctionalUseCategory> getFunctionalUseCategory();
 
-    @Operation(summary = "Find functional-use probability by dtxsid", description = "return functional-use probability for requested dtxsid")
+    @Operation(summary = "Get functional use probability by DTXSID", description = "return functional use probability for requested DTXSID")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json",
                     schema = @Schema(oneOf = {QsurDataAll.class}))),
@@ -51,7 +51,7 @@ public interface FunctionalUseApi {
     @RequestMapping(value = "/probability/search/by-dtxsid/{dtxsid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     List<QsurDataAll> getFunctionalUseProbabilityByDtxsid(@Parameter(required = true, description = "DSSTox Substance Identifier", example = "DTXSID0020232") @PathVariable("dtxsid") String dtxsid);
 
-    @Operation(summary = "Find functional-use data by batch of dtxsids", description = "return functional-use data  for requested dtxsids.")
+    @Operation(summary = "Get functional-use data for a batch of DTXSIDs", description = "return functional-use data for requested DTXSIDs")
     @ApiResponses(value= {
             @ApiResponse(responseCode = "200", description = "OK",  content = @Content( mediaType = "application/json",
                     schema=@Schema(oneOf = {FunctionalUse.class}))),

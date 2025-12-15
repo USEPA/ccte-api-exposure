@@ -23,7 +23,7 @@ public class ExposureResource implements ExposureApi {
 
 
     @Override
-    public ResponseEntity health(){
+    public ResponseEntity<?> health(){
 
         log.info("checking the health");
 
