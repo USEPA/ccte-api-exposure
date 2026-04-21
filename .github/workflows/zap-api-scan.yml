@@ -2,7 +2,7 @@ name: ZAP API Scan
 
 on:
   push:
-    branches: [ "dev", "staging",  ]
+    branches: [ "dev", "staging" ]
   workflow_dispatch:
     
 jobs:
