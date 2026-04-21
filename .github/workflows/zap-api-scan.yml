@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     
 jobs:
-  security-scan:
+  zap-api-scan:
     runs-on: "th878"
     steps:
       - name: Checkout code
