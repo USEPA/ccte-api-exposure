@@ -85,6 +85,10 @@ application:
 #   allow-credentials: true
 #   max-age: 1800
 
+exposure:
+  batch:
+    size: 200
+
 sentry:
   dsn: https://5625299f820f6efbb5b689823e37b650@ccte-app-monitoring.epa.gov/76
   traces-sample-rate: 1.0  # Captures 100% of transactions for performance monitoring
