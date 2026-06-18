@@ -11,58 +11,56 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 /**
- * REST controller for getting the {@link gov.epa.ccte.api.exposure.domain.DemoExpoPrediction}s.
+ * REST controller for getting the
+ * {@link gov.epa.ccte.api.exposure.domain.DemoExpoPrediction}s.
  */
-@Tag(name = "Demographic Exposure Prediction Resource",
-        description = "API endpoints for demographic prediction in exposure data.")
+@Tag(name = "Demographic Exposure Prediction Resource", description = "API endpoints for demographic prediction in exposure data.")
 @SecurityRequirement(name = "api_key")
 @Slf4j
 @RestController
-public class DemoExpoPredictionResource implements DemoExpoPredictionApi{
-    private final DemoExpoPredictionRepository repository;
+public class DemoExpoPredictionResource implements DemoExpoPredictionApi {
+	private final DemoExpoPredictionRepository repository;
 
-    @Value("200")
-    private Integer batchSize;
+	@Value("${exposure.batch.size}")
+	private Integer batchSize;
 
-    public DemoExpoPredictionResource(DemoExpoPredictionRepository repository) {
-        this.repository = repository;
-    }
-    
-    @Override
-    public List<?> getDemoExpoPredictionByDtxsid(String dtxsid, String projection) {
-        log.debug("Fetching assay data for dtxsid = {} with projection = {}", dtxsid, projection);
+	public DemoExpoPredictionResource(DemoExpoPredictionRepository repository) {
+		this.repository = repository;
+	}
 
-        if (projection == null || projection.isEmpty()) {
-        	List<DemoExpoPrediction> result = repository.findByDtxsid(dtxsid, DemoExpoPrediction.class);
-            return result; 
-        }
+	@Override
+	public List<?> getDemoExpoPredictionByDtxsid(String dtxsid, String projection) {
+		log.debug("Fetching assay data for dtxsid = {} with projection = {}", dtxsid, projection);
 
-        Object result = switch (projection) {
-            case "ccd-demographic" -> repository.findByDtxsid(dtxsid);
-            default -> repository.findByDtxsid(dtxsid, DemoExpoPrediction.class);
-        };
+		if (projection == null || projection.isEmpty()) {
+			List<DemoExpoPrediction> result = repository.findByDtxsid(dtxsid, DemoExpoPrediction.class);
+			return result;
+		}
 
-        if (result instanceof List<?>) {
-            return (List<?>) result;
-        } else if (result != null) {
-            return List.of(result); 
-        } else {
-            return List.of(); 
-        }
-    }
+		Object result = switch (projection) {
+		case "ccd-demographic" -> repository.findByDtxsid(dtxsid);
+		default -> repository.findByDtxsid(dtxsid, DemoExpoPrediction.class);
+		};
 
-    @Override
-    public @ResponseBody
-    List<DemoExpoPrediction> batchSearchDemoExpoPrediction(String[] dtxsids) {
-        log.debug("demographic exposure prediction data for dtxsid size = {}", dtxsids.length);
+		if (result instanceof List<?>) {
+			return (List<?>) result;
+		} else if (result != null) {
+			return List.of(result);
+		} else {
+			return List.of();
+		}
+	}
 
-        if(dtxsids.length > batchSize)
-            throw new HigherNumberOfDtxsidException(dtxsids.length, batchSize);
+	@Override
+	public @ResponseBody List<DemoExpoPrediction> batchSearchDemoExpoPrediction(String[] dtxsids) {
+		log.debug("demographic exposure prediction data for dtxsid size = {}", dtxsids.length);
 
-        List<DemoExpoPrediction> data = repository.findByDtxsidInOrderByDtxsidAsc(dtxsids, DemoExpoPrediction.class);
+		if (dtxsids.length > batchSize)
+			throw new HigherNumberOfDtxsidException(dtxsids.length, batchSize);
 
-        return data;
-    }
+		List<DemoExpoPrediction> data = repository.findByDtxsidInOrderByDtxsidAsc(dtxsids, DemoExpoPrediction.class);
+
+		return data;
+	}
 }
