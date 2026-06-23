@@ -19,7 +19,7 @@ public class ListPresenceResource implements ListPresenceApi {
     final private ListPresenceRepository listPresenceRepository;
     final private ListPresenceTagRepository listPresenceTagRepository;
 
-    @Value("200")
+    @Value("${exposure.batch.size}")
     private Integer batchSize;
 
     public ListPresenceResource(ListPresenceRepository listPresenceRepository, ListPresenceTagRepository listPresenceTagRepository) {
