@@ -85,7 +85,7 @@ application:
 #   allow-credentials: true
 #   max-age: 1800
 
-exposure:
+app:
   batch:
     size: 200
 
