@@ -16,7 +16,7 @@ import java.util.List;
 public class GenExpoPredictionResource implements GenExpoPredictionApi {
     private final GenExpoPredictionRepository repository;
 
-    @Value("${exposure.batch.size}")
+    @Value("${app.batch.size}")
     private Integer batchSize;
 
     public GenExpoPredictionResource(GenExpoPredictionRepository repository) {
