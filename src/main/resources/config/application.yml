@@ -75,6 +75,8 @@ application:
   api-key-name: "x-api-key"
   api-env: "Production Environment"
   api-url: "https://comptox.epa.gov/ctx-api"
+  batch-size: 200
+  
 # CORS is disabled by default on microservices, as you should access them through a gateway.
 # If you want to enable it, please uncomment the configuration below.
 # cors:
@@ -84,10 +86,6 @@ application:
 #   exposed-headers: "Authorization,Link,X-Total-Count"
 #   allow-credentials: true
 #   max-age: 1800
-
-app:
-  batch:
-    size: 200
 
 sentry:
   dsn: https://5625299f820f6efbb5b689823e37b650@ccte-app-monitoring.epa.gov/76

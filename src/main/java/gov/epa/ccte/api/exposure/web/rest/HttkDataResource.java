@@ -16,7 +16,7 @@ import java.util.List;
 public class HttkDataResource implements HttkDataApi {
     final private HttkDataRepository httkDataRepository;
 
-    @Value("${app.batch.size}")
+    @Value("${application.batch-size}")
     private Integer batchSize;
 
     public HttkDataResource( HttkDataRepository httkDataRepository) {

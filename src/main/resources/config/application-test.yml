@@ -23,7 +23,10 @@ spring:
         hibernate.generate_statistics: false
         hibernate.default_schema: chemexpo
         hibernate.ddl-auto: validate
-
+        
+application:
+  batch-size: 210
+  
 # logging
 logging:
   level:

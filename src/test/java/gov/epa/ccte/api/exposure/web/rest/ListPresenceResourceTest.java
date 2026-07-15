@@ -14,11 +14,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import gov.epa.ccte.api.exposure.TestHelper;
+import static gov.epa.ccte.api.exposure.TestHelper.generateRandomStrings;
 
 import gov.epa.ccte.api.exposure.domain.ListPresence;
 import gov.epa.ccte.api.exposure.domain.ListPresenceTag;
@@ -27,6 +27,8 @@ import gov.epa.ccte.api.exposure.repository.ListPresenceTagRepository;
 
 
 import java.util.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ActiveProfiles("test")
 @WebMvcTest({ListPresenceResource.class})
@@ -116,5 +118,22 @@ class ListPresenceResourceTest {
                 .andReturn();
 
     }
-    
+
+    @Test
+    void testBatchSearchBatchSizeEnforced() throws Exception {
+
+        // default batch-size should be = 210 from the application-test.yml config
+        String[] jsonArray = TestHelper.generateRandomStrings(211); 
+        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+
+        mockMvc.perform(post("/exposure/list-presence/search/by-dtxsid/")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonBody))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+
 }
