@@ -22,7 +22,7 @@ public class ProductDataResource implements ProductDataApi {
     final private ProductDataRepository productDataRepository;
     final private PucRepository pucRepository;
 
-    @Value("${app.batch.size}")
+    @Value("${application.batch-size}")
     private Integer batchSize;
 
     public ProductDataResource(ProductDataRepository productDataRepository, PucRepository pucRepository) {

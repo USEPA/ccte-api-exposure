@@ -22,7 +22,7 @@ import java.util.List;
 public class DemoExpoPredictionResource implements DemoExpoPredictionApi {
 	private final DemoExpoPredictionRepository repository;
 
-	@Value("${app.batch.size}")
+	@Value("${application.batch-size}")
 	private Integer batchSize;
 
 	public DemoExpoPredictionResource(DemoExpoPredictionRepository repository) {
