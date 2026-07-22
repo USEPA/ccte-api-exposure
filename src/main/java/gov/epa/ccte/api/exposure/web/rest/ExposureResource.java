@@ -17,30 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @Hidden // OpenAPI annotation for hiding endpoints from documentation generator
 public class ExposureResource implements ExposureApi {
-    private final JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-    public ExposureResource(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+	public ExposureResource(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
+	@Override
+	public ResponseEntity<?> health() {
 
-    @Override
-    public ResponseEntity<?> health(){
+		log.info("checking the health");
 
-        log.info("checking the health");
+		if (jdbcTemplate != null) {
+			try {
+				jdbcTemplate.execute("SELECT 1 ");
+				log.debug("DB connection established");
 
-        if(jdbcTemplate != null){
-            try {
-                jdbcTemplate.execute("SELECT 1 ");
-                log.debug("DB connection established");
+				return ResponseEntity.ok().build();
 
-                return ResponseEntity.ok().build();
-
-            } catch (DataAccessException  ep){
-                return ResponseEntity.notFound().build();
-            }
-        }else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+			} catch (DataAccessException ep) {
+				log.warn("Health check failed: database connectivity issue", ep);
+				return ResponseEntity.notFound().build();
+			}
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 }
