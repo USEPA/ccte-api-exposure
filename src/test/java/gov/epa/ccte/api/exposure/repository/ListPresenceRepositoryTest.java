@@ -6,12 +6,17 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 
 import gov.epa.ccte.api.exposure.domain.ListPresence;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Sql(scripts = {"/schema.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(
+    scripts = {"/schema.sql", "/data.sql"},
+    executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
+    config = @SqlConfig(transactionMode = SqlConfig.TransactionMode.ISOLATED)
+)
 @DataJpaTest(properties = "spring.sql.init.mode=never")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
