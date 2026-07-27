@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 //This will test REST end-points in the GenExpoPredictionDataResource.java using WebMvcTest and MockitoBean
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.projection.ProjectionFactory;
@@ -32,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ActiveProfiles("test")
 @WebMvcTest(GenExpoPredictionResource.class)
-@RunWith(MockitoJUnitRunner.class)
 class GenExpoPredictionResourceTest {
 
     @Autowired

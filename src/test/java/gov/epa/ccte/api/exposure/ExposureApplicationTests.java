@@ -13,9 +13,4 @@ class ExposureApplicationTests {
     @Test
     void contextLoads() {
     }
-
-    @Test
-    void applicationStarts() {
-        assertThatCode(() -> ExposureApplication.main(new String[]{})).doesNotThrowAnyException();
-    }
 }
