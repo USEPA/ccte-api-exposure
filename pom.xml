@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
+		<version>3.5.16</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>gov.epa.ccte.api</groupId>
@@ -15,9 +15,9 @@
 	<description>microservice for exposure</description>
 	<properties>
 		<java.version>17</java.version>
-		<testcontainers.version>1.17.6</testcontainers.version>
 		<lombok.version>1.18.30</lombok.version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
+		<sentry.version>8.18.0</sentry.version>
 	</properties>
         <distributionManagement>
         	<repository>
@@ -42,7 +42,6 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.7.2</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!--		<dependency>-->
@@ -104,18 +103,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-testcontainers</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -128,6 +117,11 @@
 			<artifactId>jackson-datatype-hibernate6</artifactId>
 			<version>2.15.2</version>
 		</dependency>
+		<dependency>
+            <groupId>io.sentry</groupId>
+            <artifactId>sentry-spring-boot-starter-jakarta</artifactId>
+            <version>${sentry.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>

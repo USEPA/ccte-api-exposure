@@ -23,7 +23,7 @@ public class FunctionalUseResource implements FunctionalUseApi {
         private final FunctionalUseCategoryRepository categoryRepository;
         private final QsurDataRepository qsurDataRepository;
         
-        @Value("200")
+        @Value("${application.batch-size}")
         private Integer batchSize;
 
     public FunctionalUseResource(FunctionalUseRepository repository, FunctionalUseCategoryRepository categoryRepository, QsurDataRepository qsurDataRepository) {

@@ -3,10 +3,7 @@ package gov.epa.ccte.api.exposure.web.rest;
 import org.junit.jupiter.api.BeforeEach;
 
 //This will test REST end-points in the ProductDataResource.java using WebMvcTest and MockitoBean
-
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -19,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import gov.epa.ccte.api.exposure.TestHelper;
 
 import gov.epa.ccte.api.exposure.domain.ProductData;
 import gov.epa.ccte.api.exposure.domain.Puc;
@@ -30,12 +28,11 @@ import java.util.*;
 
 @ActiveProfiles("test")
 @WebMvcTest(ProductDataResource.class)
-@RunWith(MockitoJUnitRunner.class)
 class ProductDataResourceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    
+
     @MockitoBean
     private ProductDataRepository productDataRepository;
 
@@ -46,7 +43,7 @@ class ProductDataResourceTest {
     private Puc puc;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         productData = ProductData.builder()
                 .id(10934L)
                 .dtxsid("DTXSID7020182")
@@ -67,7 +64,6 @@ class ProductDataResourceTest {
                 .centralweightfraction(null)
                 .weightfractiontype("reported")
                 .build();
-        
 
         puc = Puc.builder()
                 .id(25L)
@@ -86,32 +82,30 @@ class ProductDataResourceTest {
         when(productDataRepository.findByDtxsid("DTXSID7020182")).thenReturn(products);
 
         mockMvc.perform(get("/exposure/product-data/search/by-dtxsid/{dtxsid}", "DTXSID7020182"))
-				.andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].dtxsid").value(productData.getDtxsid()));
 
     }
-    
+
     @Test
     void testBatchSearchProductData() throws Exception {
-    	final List<ProductData> products = Collections.singletonList(productData);
+        final List<ProductData> products = Collections.singletonList(productData);
         String[] jsonArray = {"DTXSID7020182"};
         String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
-        		
+
         when(productDataRepository.findByDtxsidInOrderByDtxsidAsc(jsonArray, ProductData.class)).thenReturn(products);
-        
-        
+
         mockMvc.perform(post("/exposure/product-data/search/by-dtxsid/")
-        		.accept(MediaType.APPLICATION_JSON)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(jsonBody))
-        		.andDo(MockMvcResultHandlers.print())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonBody))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].dtxsid").value(productData.getDtxsid()))
                 .andReturn();
 
     }
-    
 
     @Test
     void testGetProductDataPuc() throws Exception {
@@ -120,9 +114,25 @@ class ProductDataResourceTest {
         when(pucRepository.findAll()).thenReturn(pucs);
 
         mockMvc.perform(get("/exposure/product-data/puc"))
-				.andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(puc.getId()));
 
+    }
+
+    @Test
+    void testBatchSearchBatchSizeEnforced() throws Exception {
+
+        // default batch-size should be = 210 from the application-test.yml config
+        String[] jsonArray = TestHelper.generateRandomStrings(211); 
+        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+
+        mockMvc.perform(post("/exposure/product-data/search/by-dtxsid/")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonBody))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isBadRequest())
+                .andReturn();
     }
 }
