@@ -44,7 +44,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Computational Toxicology and Exposure (CTX) APIs - CTX Exposure API")
-                        .description("The CTX Exposure API is part of US EPA's Computational Toxicology and Exposure APIs. The CTX Exposure API provides programmtic access to exposure data through a set of endpoints.")
+                        .description("The CTX Exposure API is part of US EPA's Computational Toxicology and Exposure APIs. The CTX Exposure API provides programmatic access to exposure data through a set of endpoints.")
                         .contact(new Contact()
                                 .name("")
                                 .url("")
