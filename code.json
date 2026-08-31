@@ -1,5 +1,5 @@
 {
-    "version": "2.0.0",
+    "version": "1.2.0",
     "agency": "Environmental Protection Agency",
     "releases": [
       {
@@ -15,7 +15,7 @@
           ],
           "usageType": "openSource"
         },
-        "repositoryURL": "https://github.com/USEPA/ccte-api-chemical",
+        "repositoryURL": "https://github.com/USEPA/ccte-api-exposure",
         "homepageURL": "https://www.epa.gov/comptox-tools/computational-toxicology-and-exposure-apis",
         "languages": [
           "Java"
@@ -35,7 +35,7 @@
         },
         "date": {
           "created": "2025-04-15",
-          "lastModified": "2025-04-15"
+          "lastModified": "2026-08-27"
         },
         "laborHours": 0
       }
