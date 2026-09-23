@@ -4,6 +4,7 @@ import gov.epa.ccte.api.exposure.domain.GenExpoPrediction;
 import gov.epa.ccte.api.exposure.projection.CCDGenExpoPrediction;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -17,7 +18,7 @@ public interface GenExpoPredictionRepository extends JpaRepository<GenExpoPredic
 
     <T> List<T> findByDtxsidInOrderByDtxsidAsc(String[] dtxsids, Class<T> type);
 
-    @Query(value = """
+    @NativeQuery("""
     			SELECT
     				'Production Volume' AS predictor,
     				gen.production_volume AS value,
@@ -59,6 +60,6 @@ public interface GenExpoPredictionRepository extends JpaRepository<GenExpoPredic
     			    'Likelihood from 0 (none) to 1 (certain)' AS units		
     			FROM ep.v_gen_expo_predictions gen
     			WHERE gen.dtxsid = :dtxsid   
-    		""", nativeQuery = true)
+    		""")
     List<CCDGenExpoPrediction> findByDtxsid(String dtxsid);
 }
