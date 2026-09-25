@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 //This will test REST end-points in the FunctionalUseResource.java using WebMvcTest and MockitoBean
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.http.MediaType;
@@ -15,7 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import gov.epa.ccte.api.exposure.TestHelper;
 import static gov.epa.ccte.api.exposure.TestHelper.generateRandomStrings;
 
@@ -118,7 +119,7 @@ class FunctionalUseResourceTest {
     void testBatchSearchFunctionalUse() throws Exception {
         final List<FunctionalUse> functionalUseData = Collections.singletonList(functionalUse);
         String[] jsonArray = {"DTXSID7020182"};
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
 
         when(functionalUseRepository.findByDtxsidInOrderByDtxsidAsc(jsonArray, FunctionalUse.class)).thenReturn(functionalUseData);
 
@@ -138,7 +139,7 @@ class FunctionalUseResourceTest {
 
         // default batch-size should be = 210 from the application-test.yml config
         String[] jsonArray = TestHelper.generateRandomStrings(211); 
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
 
         mockMvc.perform(post("/exposure/functional-use/search/by-dtxsid/")
                 .accept(MediaType.APPLICATION_JSON)
