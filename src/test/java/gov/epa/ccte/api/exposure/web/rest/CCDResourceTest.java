@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 //This will test REST end-points in the CCDResource.java using WebMvcTest and MockitoBean
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.projection.ProjectionFactory;
@@ -39,8 +37,6 @@ import java.util.*;
 
 @ActiveProfiles("test")
 @WebMvcTest(CCDResource.class)
-@RunWith(MockitoJUnitRunner.class)
-
 public class CCDResourceTest {
 	
     @Autowired
