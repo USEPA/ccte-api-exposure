@@ -3,7 +3,7 @@ package gov.epa.ccte.api.exposure.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.repository.query.Param;
 
 import gov.epa.ccte.api.exposure.domain.CCDBiomonitoring;
@@ -18,7 +18,7 @@ public interface CCDBiomonitoringRepository extends JpaRepository<CCDBiomonitori
     @Transactional(readOnly = true)
     <T> List<T> findByDtxsid(String dtxsid, Class<T> type);
     
-    @Query(value = """
+    @NativeQuery("""
     					SELECT
     					    bio.dtxsid, 
     					    bio.demographic_group AS label,
@@ -36,6 +36,6 @@ public interface CCDBiomonitoringRepository extends JpaRepository<CCDBiomonitori
     					WHERE
     					    bio.dtxsid = :dtxsid
     					ORDER BY label ASC;
-    				""", nativeQuery = true)
+    				""")
     List<CCDBiomonitoringAll> findByDtxsidWithMsgColumn(@Param("dtxsid")String dtxsid);
 }

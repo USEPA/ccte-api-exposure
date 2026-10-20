@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 //This will test REST end-points in the DemoExpoPredictionDataResource.java using WebMvcTest and MockitoBean
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.http.MediaType;
@@ -17,7 +17,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import gov.epa.ccte.api.exposure.TestHelper;
 import static gov.epa.ccte.api.exposure.TestHelper.generateRandomStrings;
 
@@ -96,7 +97,7 @@ class DemoExpoPredictionResourceTest {
     void testBatchSearchDemoExpoPrediction() throws Exception {
         final List<DemoExpoPrediction> demoExpo = Collections.singletonList(demoExpoPrediction);
         String[] jsonArray = {"DTXSID7020182"};
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
 
         when(demoExpoPredictionRepository.findByDtxsidInOrderByDtxsidAsc(jsonArray, DemoExpoPrediction.class)).thenReturn(demoExpo);
 
@@ -116,7 +117,7 @@ class DemoExpoPredictionResourceTest {
         
         // default batch-size should be = 210 from the application-test.yml config
         String[] jsonArray = TestHelper.generateRandomStrings(211); 
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
         
         mockMvc.perform(post("/exposure/seem/demographic/search/by-dtxsid/")
                 .accept(MediaType.APPLICATION_JSON)

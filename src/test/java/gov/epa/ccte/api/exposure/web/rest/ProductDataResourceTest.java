@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 //This will test REST end-points in the ProductDataResource.java using WebMvcTest and MockitoBean
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -15,7 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import gov.epa.ccte.api.exposure.TestHelper;
 
 import gov.epa.ccte.api.exposure.domain.ProductData;
@@ -92,7 +93,7 @@ class ProductDataResourceTest {
     void testBatchSearchProductData() throws Exception {
         final List<ProductData> products = Collections.singletonList(productData);
         String[] jsonArray = {"DTXSID7020182"};
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
 
         when(productDataRepository.findByDtxsidInOrderByDtxsidAsc(jsonArray, ProductData.class)).thenReturn(products);
 
@@ -125,7 +126,7 @@ class ProductDataResourceTest {
 
         // default batch-size should be = 210 from the application-test.yml config
         String[] jsonArray = TestHelper.generateRandomStrings(211); 
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
 
         mockMvc.perform(post("/exposure/product-data/search/by-dtxsid/")
                 .accept(MediaType.APPLICATION_JSON)

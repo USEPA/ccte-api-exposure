@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -14,7 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import gov.epa.ccte.api.exposure.TestHelper;
 import static gov.epa.ccte.api.exposure.TestHelper.generateRandomStrings;
 
@@ -100,7 +101,7 @@ class ListPresenceResourceTest {
     void testBatchSearchListPresence() throws Exception {
     	final List<ListPresence> presence = Collections.singletonList(listPresence);
         String[] jsonArray = {"DTXSID7020182"};
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
         		
         when(listPresenceRepository.findByDtxsidInOrderByDtxsidAsc(jsonArray, ListPresence.class)).thenReturn(presence);
         
@@ -121,7 +122,7 @@ class ListPresenceResourceTest {
 
         // default batch-size should be = 210 from the application-test.yml config
         String[] jsonArray = TestHelper.generateRandomStrings(211); 
-        String jsonBody = new ObjectMapper().writeValueAsString(jsonArray);
+        String jsonBody = new JsonMapper().writeValueAsString(jsonArray);
 
         mockMvc.perform(post("/exposure/list-presence/search/by-dtxsid/")
                 .accept(MediaType.APPLICATION_JSON)
